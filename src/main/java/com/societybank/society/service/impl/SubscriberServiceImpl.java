@@ -91,14 +91,14 @@ public class SubscriberServiceImpl implements SubscriberService {
 
     @Override
     public ResponseEntity<?> generateOtp(Long mobileNumber) throws ExecutionException {
-        final var subscriberEntity = subscriberRepository.findByMobileNumber(mobileNumber).orElseThrow(() -> new InvalidUserIdException());
+        //final var subscriberEntity = subscriberRepository.findByMobileNumber(mobileNumber).orElseThrow(() -> new InvalidUserIdException());
         final var response = new JSONObject();
 
-        if (oneTimePasswordCache.get(subscriberEntity.getId()) != null)
-            oneTimePasswordCache.invalidate(subscriberEntity.getId());
+        if (oneTimePasswordCache.get(mobileNumber) != null)
+            oneTimePasswordCache.invalidate(mobileNumber);
 
         final var otp = new Random().ints(1, 100000, 999999).sum();
-        oneTimePasswordCache.put(subscriberEntity.getId(), otp);
+        oneTimePasswordCache.put(mobileNumber, otp);
         generateMessage(String.valueOf(mobileNumber), otp);
         response.put(ApiConstants.OTP, otp);
         response.put(ApiConstants.MESSAGE, ApiConstants.OTP_GENERATION_SUCCESS);
@@ -106,16 +106,16 @@ public class SubscriberServiceImpl implements SubscriberService {
         return ResponseEntity.ok(response.toString());
     }
 
-    private boolean validateOtp(final SubscriberEntity subscriberEntity, final Integer otp) throws ExecutionException {
-        return oneTimePasswordCache.get(subscriberEntity.getId()).equals(otp);
+    private boolean validateOtp(final Long mobile, final Integer otp) throws ExecutionException {
+        return oneTimePasswordCache.get(mobile).equals(otp);
     }
 
     public ResponseEntity<?> validateOTPProceed(final SubscriberLoginRequestDto subscriberLoginRequestDto)
             throws ExecutionException {
-        final var subscriberEntity = subscriberRepository.findByMobileNumber(subscriberLoginRequestDto.getMobile()).orElseThrow(() -> new InvalidUserIdException());
+        //final var subscriberEntity = subscriberRepository.findByMobileNumber(subscriberLoginRequestDto.getMobile()).orElseThrow(() -> new InvalidUserIdException());
         final var response = new JSONObject();
-        if (validateOtp(subscriberEntity, subscriberLoginRequestDto.getOtp())) {
-            oneTimePasswordCache.invalidate(subscriberEntity.getId());
+        if (validateOtp(subscriberLoginRequestDto.getMobile(), subscriberLoginRequestDto.getOtp())) {
+            oneTimePasswordCache.invalidate(subscriberLoginRequestDto.getMobile());
             response.put(ApiConstants.MESSAGE, ApiConstants.OTP_VALIDATE_SUCCESS);
             response.put(ApiConstants.TIMESTAMP, LocalDateTime.now().toString());
             return ResponseEntity.ok(response.toString());
