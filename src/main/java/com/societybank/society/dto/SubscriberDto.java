@@ -20,8 +20,5 @@ public class SubscriberDto implements Serializable {
     private Long referenceEmp;
     private Long filliedBy;
 
-    public long getId() {
-        return id;
-    }
 
 }

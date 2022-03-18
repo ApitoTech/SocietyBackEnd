@@ -14,5 +14,4 @@ public class ApiConstants {
 	public static final String API_KEY = "BOAyH2Abhn2buoLL";
 	public static final String API_URI = "http://app.mydreamstechnology.in/vb/apikey.php";
 
-
 }

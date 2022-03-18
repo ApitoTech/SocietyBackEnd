@@ -1,6 +1,5 @@
 package com.societybank.society.dto;
 
-import com.societybank.society.entity.EmployeeEntity;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -17,8 +16,5 @@ public class EmployeeDto implements Serializable {
     private Boolean updateAccess;
     private Boolean superAdmin;
 
-    public long getId() {
-        return id;
-    }
 
 }

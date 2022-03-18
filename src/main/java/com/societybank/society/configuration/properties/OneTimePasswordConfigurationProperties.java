@@ -1,10 +1,10 @@
 package com.societybank.society.configuration.properties;
 
+import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-import lombok.Data;
-
 @Data
+@ConfigurationProperties(prefix = "com.societybank.society")
 public class OneTimePasswordConfigurationProperties {
 
 	private OTP otp = new OTP();

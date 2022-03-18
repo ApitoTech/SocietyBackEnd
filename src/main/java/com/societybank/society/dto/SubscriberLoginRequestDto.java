@@ -13,10 +13,10 @@ import lombok.Getter;
 @JacksonStdImpl
 public class SubscriberLoginRequestDto {
 
-    @NotBlank(message = "Mobile must not be empty")
+   // @NotBlank(message = "Mobile must not be empty")
     private final Long mobile;
 
-    @NotBlank(message = "OTP Must not be blank")
+   // @NotBlank(message = "OTP Must not be blank")
     private final Integer otp;
 
 }
