@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.Instant;
+import java.util.Date;
 
 @Entity
 @Data
@@ -24,7 +25,7 @@ public class PaymentEntity {
     private Integer amount;
 
     @Column(name = "created_date", nullable = false)
-    private Instant createdDate;
+    private Date createdDate;
 
     @Column(name = "order_id", nullable = false, length = 100)
     private String orderId;
@@ -35,11 +36,17 @@ public class PaymentEntity {
     @Column(name = "razorpay_payment_id", nullable = false, length = 100)
     private String razorpayPaymentId;
 
+    @Column(name = "razorpay_signature", nullable = false)
+    private String razorpaySignature;
+
     @Column(name = "receipt_no", nullable = false, length = 100)
     private String receiptNo;
 
     @Column(name = "status", nullable = false, length = 100)
     private String status;
+
+    @Column(name = "order_response", nullable = false, length = 512)
+    private String order;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "subscriber_id", nullable = false)
