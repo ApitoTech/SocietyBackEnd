@@ -27,6 +27,7 @@ import java.math.RoundingMode;
 @Slf4j
 @RestController
 @RequestMapping("/api")
+@CrossOrigin(origins = "*")
 public class PaymentOrderController {
 
     private RazorpayClient client;
@@ -50,7 +51,8 @@ public class PaymentOrderController {
     public ResponseEntity<?> createOrder(@RequestBody PaymentDto orderRequest) {
         OrderResponse razorPay = null;
         try {
-            String amountInPaise = convertRupeeToPaise(orderRequest.getAmount());
+           // String amountInPaise = convertRupeeToPaise(orderRequest.getAmount());
+        	String amountInPaise = convertRupeeToPaise("300");
             Order order = createRazorPayOrder(amountInPaise);
             razorPay = getOrderResponse((String) order.get("id"), amountInPaise);
             paymentService.savePayment(razorPay.getRazorpayOrderId(), orderRequest.getUserId() , order);

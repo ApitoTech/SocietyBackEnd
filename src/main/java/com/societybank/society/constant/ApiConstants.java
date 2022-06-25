@@ -11,7 +11,7 @@ public class ApiConstants {
 	public static final String OTP = "One Time Password";
 
 	public static final String SENDER_ID = "MDTDMO";
-	public static final String API_KEY = "BOAyH2Abhn2buoLL";
+	public static final String API_KEY = "IsogeZAVa6dEyUoc";
 	public static final String API_URI = "http://app.mydreamstechnology.in/vb/apikey.php";
 
 }

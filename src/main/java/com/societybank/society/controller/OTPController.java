@@ -4,6 +4,7 @@ import com.societybank.society.constant.ApiConstants;
 import com.societybank.society.dto.SubscriberLoginRequestDto;
 import com.societybank.society.service.SubscriberService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,7 @@ import java.util.concurrent.ExecutionException;
 
 @RestController
 @RequestMapping("/authentication")
+@CrossOrigin(origins = "*")
 public class OTPController {
 
     SubscriberService subscriberService;
@@ -34,6 +36,7 @@ public class OTPController {
     public ResponseEntity<?> validateOTPProceed(
             @Valid @RequestBody(required = true) final SubscriberLoginRequestDto subscriberLoginRequestDto)
             throws ExecutionException {
+    	System.out.println("validae otp"+subscriberLoginRequestDto.getMobile());
         return subscriberService.validateOTPProceed(subscriberLoginRequestDto);
     }
 
